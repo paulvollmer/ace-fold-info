@@ -1,0 +1,14 @@
+{
+  "name": "ace-fold-info",
+  "version": "0.0.0",
+  "description": "ace fold information addon",
+  "author": "Paul Vollmer",
+  "license": "MIT",
+  "keywords": ["ace", "editor"],
+  "scripts": {
+    "start": "node node_modules/.bin/http-server"
+  },
+  "devDependencies": {
+    "http-server": "0.6.1"
+  }
+}

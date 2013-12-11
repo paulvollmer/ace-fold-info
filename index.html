@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Paul Vollmer">
+  <title>ace fold info</title>
+  <link rel='stylesheet' href='./stylesheets/style.css' />
+</head>
+<body>
+  <div class="container">
+    <div class="buttons">
+      <button type="button" id="fold_all">Fold All</button>
+      <button type="button" id="unfold_all">Unfold All</button>
+      <script type="text/javascript">
+        document.addEventListener('click', function(e) {
+          if (e.target.id === 'fold_all') {
+            console.log('fold_all');
+            editor.session.foldAll();
+          };
+          if (e.target.id === 'unfold_all') {
+            console.log('unfold_all');
+            editor.session.unfold();
+          };
+        }, false);
+      </script>
+    </div>
+    <div id="editor_viz" style="background-color:#f9f9f9; width:80px; display:inline; float:left;"></div>
+    <div id="editor">console.log('Hello world');</div>
+    <script src="./ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+      var editor = ace.edit('editor');
+      editor.setTheme('ace/theme/tomorrow');
+      editor.getSession().setMode('ace/mode/javascript');
+    </script>
+  </div>
+</body>
+</html>

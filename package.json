@@ -6,7 +6,7 @@
   "license": "MIT",
   "keywords": ["ace", "editor"],
   "scripts": {
-    "start": "make start"
+    "start": "make start_server"
   },
   "devDependencies": {
     "http-server": "0.6.1"

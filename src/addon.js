@@ -3,10 +3,18 @@
  */
 var aceAddon = {
   /**
+   * Some constant variables we use over and over.
+   */
+  CONSTANTS: {
+    MAIN: 'editor_addon',
+    CELL: 'editor_addon_cell'
+  },
+
+  /**
    * Set the height of the editor addon.
    */
   setHeight: function(height) {
-    document.getElementById('editor_addon').style.height = height+'px';
+    document.getElementById(this.CONSTANTS.MAIN).style.height = height+'px';
   },
 
   /**
@@ -14,12 +22,12 @@ var aceAddon = {
    */
   gutterCell: function(id) {
     var tmpGutterCell = document.createElement('div');
-    tmpGutterCell.className = 'editor_addon_cell';
+    tmpGutterCell.className = this.CONSTANTS.CELL;
     tmpGutterCell.id = id;
     tmpGutterCell.innerText = '';
     tmpGutterCell.style.height = editor.renderer.lineHeight+'px';
     tmpGutterCell.style.fontSize = '12.2px';
-    document.getElementById('editor_addon').appendChild(tmpGutterCell);
+    document.getElementById(this.CONSTANTS.MAIN).appendChild(tmpGutterCell);
   },
 
   /**

@@ -5,6 +5,10 @@
   "author": "Paul Vollmer",
   "license": "MIT",
   "keywords": ["ace", "editor"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wrongentertainment/ace-fold-info.git"
+  },
   "scripts": {
     "start": "make start_server"
   },

@@ -1,8 +1,33 @@
+/* General
+ * ------------------------------------------------------------------------- */
+body {
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+}
 
-#editor { 
-  position: absolute;
-  top: 40px;
-  right: 0;
-  bottom: 0;
-  left: 0;
+a {
+  color: black;
+}
+
+.navbar {
+  background-color: #F5F5F5;
+  margin-top: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+#buttons_container {
+  margin-bottom: 15px;
+}
+
+/* Editor
+ * ------------------------------------------------------------------------- */
+#editor_addon {
+  background-color: #F5F5F5;
+  width: 80px;
+  display: inline;
+  float: left;
 }

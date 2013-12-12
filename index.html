@@ -96,7 +96,7 @@ function rectArea(a, b) {
           editorHelper.setHeight(tmpHeight);
 
           aceAddon.setHeight(tmpHeight);
-          aceAddon.gutters();
+          aceAddon.addGutters(editor.getSession().getDocument().getLength());
           foldInfo.graph();
         } else {
           var tmpHeight = editor.getSession().getDocument().getLength() * editor.renderer.lineHeight;
@@ -104,7 +104,7 @@ function rectArea(a, b) {
           editorHelper.setHeight(tmpHeight);
 
           aceAddon.setHeight(tmpHeight);
-          aceAddon.gutters();
+          aceAddon.addGutters(editor.getSession().getDocument().getLength());
           foldInfo.graph();
         }
       }

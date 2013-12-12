@@ -53,13 +53,10 @@ var aceAddon = {
   },
 
   /**
-   * Add all gutters.
+   * Add 'n' gutters to the addon.
+   * 
+   * @param {Number} totalGutters The number of gutters we want to add.
    */
-  gutters: function() {
-    var totalGutter = editor.getSession().getDocument().getLength();
-    //console.log('totalGutter', totalGutter);
-
-    for (var i = 0; i < totalGutter; i++) {
       this.gutterCell(this.CONSTANTS.CELL_ID+i);
     };
   }

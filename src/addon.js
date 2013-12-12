@@ -7,7 +7,8 @@ var aceAddon = {
    */
   CONSTANTS: {
     MAIN: 'editor_addon',
-    CELL: 'editor_addon_cell'
+    CELL: 'editor_addon_cell',
+    CELL_ID: 'cell_'
   },
 
   /**
@@ -34,7 +35,7 @@ var aceAddon = {
    * Set the text content of the gutter cell.
    */
   setGutterCellText: function(id, content) {
-    var tmp = document.getElementById('cell_'+id);
+    var tmp = document.getElementById(this.CONSTANTS.CELL_ID+id);
     tmp.innerText = content;
     
     // TODO: Draw the graph here...
@@ -59,7 +60,7 @@ var aceAddon = {
     //console.log('totalGutter', totalGutter);
 
     for (var i = 0; i < totalGutter; i++) {
-      this.gutterCell('cell_'+i);
+      this.gutterCell(this.CONSTANTS.CELL_ID+i);
     };
   }
 };

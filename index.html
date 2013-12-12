@@ -31,14 +31,21 @@
   <div id="editor_container">
     <div id="editor_addon"></div>
     <div id="editor">/**
-* ace-fold-info
-*/
+ * ace-fold-info
+ * This is a small demo of the 'ace fold info' experiment.
+ */
 
 console.log('hello ace editor');
 
 function square(a) {
-  return a*a;
-}</div>
+  return rectArea(a, a);
+}
+
+function rectArea(a, b) {
+  var result = a*b;
+  return result;
+}
+</div>
     <script src="./javascripts/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="./javascripts/main.js" type="text/javascript" charset="utf-8"></script>
   </div>

@@ -16,6 +16,7 @@
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "*",
     "grunt-contrib-watch": "*",
-    "http-server": "0.6.1"
+    "http-server": "0.6.1",
+    "jsdoc": "*"
   }
 }

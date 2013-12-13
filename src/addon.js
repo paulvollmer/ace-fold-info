@@ -1,12 +1,31 @@
 /**
  * Some constant variables we use over and over.
- *
- * @type {Object}
+ * 
+ * @namespace ACE_ADDON_CONSTANTS
  */
 var ACE_ADDON_CONSTANTS = {
+  /**
+   * The addon main id.
+   * @inner
+   */
   MAIN: 'editor_addon',
+  
+  /**
+   * The addon cell class name.
+   * @inner
+   */
   CELL: 'editor_addon_cell',
+
+  /**
+   * The addon cell id.
+   * @inner
+   */
   CELL_ID: 'cell_',
+
+  /**
+   * The addon cell font size.
+   * @inner
+   */
   CELL_FONT_SIZE: '12.2px'
 };
 

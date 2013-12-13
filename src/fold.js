@@ -3,6 +3,12 @@
  */
 var foldInfo = {
 
+  /**
+   * Add infos about the folded text
+   * 
+   * @param {Object} foldData ace object
+   * @param {Object} addon    AceAddon object
+   */
   add: function(foldData, addon) {
     // Calculate the lines we will fold.
     var range = foldData.data.end.row-foldData.data.start.row;
@@ -10,8 +16,14 @@ var foldInfo = {
     addon.setGutterCell(foldData.data.end.row, 'sloc: '+(range-1));
   },
 
+  /**
+   * Remove infos about the folded text
+   * 
+   * @param {Object} foldData ace object
+   * @param {Object} addon    AceAddon object
+   */
   remove: function(foldData, addon) {
     addon.setGutterCell(foldData.data.end.row, '');
   }
-  
+
 };

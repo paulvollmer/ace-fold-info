@@ -183,10 +183,16 @@ AceAddon.prototype.setGutterCellClassName = function(id, name) {
   document.getElementById(this.CONSTANTS.CELL_ID+id).className = name;
 };
 
+/**
+ * Change the style to show the cell.
+ */
 AceAddon.prototype.showGutterCell = function(id) {
   document.getElementById(this.CONSTANTS.CELL_ID+id).style.display = 'block';
 };
 
+/**
+ * Change the style to hide the cell.
+ */
 AceAddon.prototype.hideGutterCell = function(id) {
   document.getElementById(this.CONSTANTS.CELL_ID+id).style.display = 'none';
 };

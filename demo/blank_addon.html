@@ -27,9 +27,7 @@ function rectArea(a, b) {
     <script src="./javascripts/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="./javascripts/main.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      /**
-       * Create a new ace editor instance and set some settings.
-       */
+      // Create a new ace editor instance and set some settings.
       var editor = ace.edit('editor');
       editor.setTheme('ace/theme/tomorrow');
       editor.getSession().setMode('ace/mode/javascript');
@@ -37,18 +35,9 @@ function rectArea(a, b) {
         maxLines: Infinity
       });
 
-      /**
-       * Create a ace addon instance.
-       */
-      var addon = new AceAddon();
+      // Create a ace addon instance.
+      var addon = new AceAddon(editor);
       addon.update(editor);
-
-      /**
-       * input functions on change event...
-       */
-      editor.getSession().on('change',function(){
-        addon.update(editor);
-      });
     </script>
   </div>
 

@@ -49,70 +49,34 @@ function rectArea(a, b) {
     <script src="./javascripts/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="./javascripts/main.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      /**
-       * Create a new ace editor instance and setup some settings.
-       */
+      // Create a new ace editor instance and setup some settings.
       var editor = ace.edit("editor");
       editor.setTheme("ace/theme/tomorrow");
       editor.getSession().setMode("ace/mode/javascript", function() {
         // Fold the content
         editor.session.foldAll();
 
-        foldInfo.graph();
+        //foldInfo.graph(editor, addon);
+      });
+      editor.setOptions({
+        maxLines: Infinity
       });
 
-      /**
-       * input functions on change event...
-       */
-      editor.getSession().on('change',function(){
-        update();
-      });
+      // Create a ace addon instance.
+      var addon = new AceAddon(editor);
+      addon.update(editor);
 
-      editor.getSession().on('changeFold',function(){
-        //console.log('-> changeFold');
-        foldInfo.graph();
-      });
-
-      /**
-       * Some ace editor helper functions we need.
-       */
-      var editorHelper = {
-        /**
-         * Set the height of the editor.
-         * Note: ace get slow if too many lines.
-         */
-        setHeight: function(height) {
-          document.getElementById('editor').style.height = height+'px';
+      // input functions on change event...
+      editor.getSession().on('changeFold',function(e) {
+        if (e.action === 'add') {
+          //console.log('fold it', e);
+          foldInfo.add(e, addon);
         }
-      };
-
-      /**
-       * Update function
-       */
-      function update() {
-        var tmpEditorLength = editor.getSession().getDocument().getLength();
-
-        if (tmpEditorLength < 20) {
-          var tmpHeight = editor.renderer.lineHeight*20;
-          //editorSetHeight(tmpHeight);
-          editorHelper.setHeight(tmpHeight);
-
-          aceAddon.setHeight(tmpHeight);
-          aceAddon.addGutters(tmpEditorLength);
-          foldInfo.graph();
-        } else {
-          var tmpHeight = tmpEditorLength * editor.renderer.lineHeight;
-          //editorSetHeight(tmpHeight);
-          editorHelper.setHeight(tmpHeight);
-
-          aceAddon.setHeight(tmpHeight);
-          aceAddon.addGutters(tmpEditorLength);
-          foldInfo.graph();
+        if (e.action === 'remove') {
+          //console.log('unfold it', e);
+          foldInfo.remove(e, addon);
         }
-      }
-
-      update();
-
+      });
     </script>
   </div>
 

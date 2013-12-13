@@ -57,11 +57,9 @@ function AceAddon(ace) {
   // Set some rules to the stylesheets
   document.write('<style>.editor_addon_cell_active { background-color: #dcdcdc; }</style>');
 
-  // var sheets = document.styleSheets[0];
-  // console.log(sheets);
-
   // Add first time the gutter
   this.addGutter(ace);
+  // Set the first cell to active
   this.setGutterCellClassName(this.lastCursorRow, this.CONSTANTS.ACTIVE);
 }
 

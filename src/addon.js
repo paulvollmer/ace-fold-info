@@ -35,11 +35,18 @@ function AceAddon(ace) {
      */
     CELL_FONT_SIZE: '12.2px',
 
-    CURSOR: 'active_line'
+    /**
+     * The cellactive class name.
+     * @inner
+     */
+    ACTIVE: 'editor_addon_cell_active'
   };
 
   // The main DOM element
   this.mainElement = document.getElementById(this.CONSTANTS.MAIN_ID);
+
+  // The last cursor row
+  this.lastCursorRow = 0;
 
   // Default styling
   this.mainElement.style.display = 'inline';
@@ -47,8 +54,15 @@ function AceAddon(ace) {
   this.mainElement.style.backgroundColor = '#f6f6f6';
   this.mainElement.style.width = '50px';
 
+  // Set some rules to the stylesheets
+  document.write('<style>.editor_addon_cell_active { background-color: #dcdcdc; }</style>');
+
+  // var sheets = document.styleSheets[0];
+  // console.log(sheets);
+
   // Add first time the gutter
   this.addGutter(ace);
+  this.setGutterCellClassName(this.lastCursorRow, this.CONSTANTS.ACTIVE);
 }
 
 /**
@@ -107,7 +121,14 @@ AceAddon.prototype.update = function(ace) {
   ace.selection.on('changeCursor', function(e) {
     var positionRow = ace.selection.getCursor().row;
     console.log('changeCursor', positionRow);
-    // TODO: set cell color
+    
+    // reset the last activ cell class name.
+    self.setGutterCellClassName(self.lastCursorRow, self.CONSTANTS.CELL_CLASS);
+
+    // Update the lastCursorRow variable
+    self.lastCursorRow = positionRow;
+    // Set the new active cell class name.
+    self.setGutterCellClassName(positionRow, self.CONSTANTS.ACTIVE);
   });
 };
 
@@ -137,6 +158,17 @@ AceAddon.prototype.addGutterCell = function(id, html) {
 AceAddon.prototype.setGutterCell = function(id, html) {
   var tmp = document.getElementById(this.CONSTANTS.CELL_ID+id);
   tmp.innerHTML = html;
+};
+
+/**
+ * Set the class name of a specific gutter cell.
+ * This for example we use for the active cursor cell.
+ * 
+ * @param {String} id   The id of the gutter cell.
+ * @param {String} name The new class name.
+ */
+AceAddon.prototype.setGutterCellClassName = function(id, name) {
+  document.getElementById(this.CONSTANTS.CELL_ID+id).className = name;
 };
 
 /**

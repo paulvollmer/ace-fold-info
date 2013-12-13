@@ -107,14 +107,32 @@ AceAddon.prototype.update = function(ace) {
 
   // on change fold event...
   ace.getSession().on('changeFold', function(e) {
-    console.log('changeFold', e);
+    // if something was fold.
+    if (e.action === 'add') {
+      console.log('fold it', e.data);
+      for (var i=e.data.start.row; i<e.data.end.row; i++) {
+        self.hideGutterCell(i);
+      };
+    }
+    // if something was unfold.
+    if (e.action === 'remove') {
+      console.log('unfold it', e.data);
+      for (var i=e.data.start.row; i<e.data.end.row; i++) {
+        self.showGutterCell(i);
+      };
+    }
+    
+    // var start = e.data.start.row;
+    // var end = e.data.end.row;
+    // console.log(start, end);
 
+    // self.hideGutterCell(10);
   });
 
   // on change fold event...
   ace.selection.on('changeCursor', function(e) {
     var positionRow = ace.selection.getCursor().row;
-    console.log('changeCursor', positionRow);
+    //console.log('changeCursor', positionRow);
     
     // reset the last activ cell class name.
     self.setGutterCellClassName(self.lastCursorRow, self.CONSTANTS.CELL_CLASS);
@@ -163,6 +181,14 @@ AceAddon.prototype.setGutterCell = function(id, html) {
  */
 AceAddon.prototype.setGutterCellClassName = function(id, name) {
   document.getElementById(this.CONSTANTS.CELL_ID+id).className = name;
+};
+
+AceAddon.prototype.showGutterCell = function(id) {
+  document.getElementById(this.CONSTANTS.CELL_ID+id).style.display = 'block';
+};
+
+AceAddon.prototype.hideGutterCell = function(id) {
+  document.getElementById(this.CONSTANTS.CELL_ID+id).style.display = 'none';
 };
 
 /**

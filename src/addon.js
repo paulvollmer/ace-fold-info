@@ -4,7 +4,7 @@
  * You need to add a "div" with an id "editor_addon" to append to the DOM
  * correctly.
  */
-function AceAddon() {
+function AceAddon(ace) {
   /**
    * Some constant variables we use over and over.
    * 
@@ -34,16 +34,21 @@ function AceAddon() {
      * @inner
      */
     CELL_FONT_SIZE: '12.2px',
+
+    CURSOR: 'active_line'
   };
 
   // The main DOM element
   this.mainElement = document.getElementById(this.CONSTANTS.MAIN_ID);
 
-  // default styling
+  // Default styling
   this.mainElement.style.display = 'inline';
   this.mainElement.style.float = 'left';
   this.mainElement.style.backgroundColor = '#f6f6f6';
   this.mainElement.style.width = '50px';
+
+  // Add first time the gutter
+  this.addGutter(ace);
 }
 
 /**
@@ -74,8 +79,36 @@ AceAddon.prototype.setWidth = function(width) {
  * Status: Total WIP...
  */
 AceAddon.prototype.update = function(ace) {
-  this.cleanGutter();
-  this.addGutter(ace);
+  var self = this;
+
+  // on change event...
+  ace.getSession().on('change', function(e) {
+    console.log(e);
+
+    // if a new lin was added
+    if (e.data.action === 'insertText' && e.data.text === '\n') {
+      self.cleanGutter();
+      self.addGutter(ace);
+    };
+    // if a line was removed
+    if (e.data.action === 'removeLines') {
+      self.cleanGutter();
+      self.addGutter(ace);
+    };
+  });
+
+  // on change fold event...
+  ace.getSession().on('changeFold', function(e) {
+    console.log('changeFold', e);
+
+  });
+
+  // on change fold event...
+  ace.selection.on('changeCursor', function(e) {
+    var positionRow = ace.selection.getCursor().row;
+    console.log('changeCursor', positionRow);
+    // TODO: set cell color
+  });
 };
 
 /**

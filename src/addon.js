@@ -109,24 +109,18 @@ AceAddon.prototype.update = function(ace) {
   ace.getSession().on('changeFold', function(e) {
     // if something was fold.
     if (e.action === 'add') {
-      console.log('fold it', e.data);
+      //console.log('fold it', e.data);
       for (var i=e.data.start.row; i<e.data.end.row; i++) {
         self.hideGutterCell(i);
       };
     }
     // if something was unfold.
     if (e.action === 'remove') {
-      console.log('unfold it', e.data);
+      //console.log('unfold it', e.data);
       for (var i=e.data.start.row; i<e.data.end.row; i++) {
         self.showGutterCell(i);
       };
     }
-    
-    // var start = e.data.start.row;
-    // var end = e.data.end.row;
-    // console.log(start, end);
-
-    // self.hideGutterCell(10);
   });
 
   // on change fold event...

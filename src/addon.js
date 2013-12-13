@@ -83,12 +83,6 @@ AceAddon.prototype.setWidth = function(width) {
   this.mainElement.style.width = width+'px';
 };
 
-// adjust the height to the amount of lines of text.
-// AceAddon.prototype.setHeightToEditorLength = function(ace) {
-//   var height = ace.getSession().getDocument().getLength() * ace.renderer.lineHeight;
-//   this.setHeight(height);
-// };
-
 /**
  * Status: Total WIP...
  */
@@ -191,12 +185,3 @@ AceAddon.prototype.addGutter = function(ace) {
 AceAddon.prototype.cleanGutter = function() {
   this.mainElement.innerHTML = '';
 };
-
-// /**
-//  * Delete text content from each gutter cell.
-//  */
-// AceAddon.prototype.resetCellText = function(totalGutters) {
-//   for (var i=0; i<editor.getSession().getDocument().getLength(); i++) {
-//     this.gutter.setCellText(i, '');
-//   };
-// };

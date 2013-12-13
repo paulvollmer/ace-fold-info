@@ -1,110 +1,146 @@
 /**
- * Some constant variables we use over and over.
- * 
- * @namespace ACE_ADDON_CONSTANTS
+ * The ace editor addon.
+ * This object contains functions to create and manipulate the editor addon.
+ * You need to add a "div" with an id "editor_addon" to append to the DOM
+ * correctly.
  */
-var ACE_ADDON_CONSTANTS = {
+function AceAddon() {
   /**
-   * The addon main id.
-   * @inner
+   * Some constant variables we use over and over.
+   * 
+   * @namespace ACE_ADDON_CONSTANTS
    */
-  MAIN: 'editor_addon',
+  this.CONSTANTS = {
+    /**
+     * The addon main id name.
+     * @inner
+     */
+    MAIN_ID: 'editor_addon',
+    
+    /**
+     * The addon cell class name.
+     * @inner
+     */
+    CELL_CLASS: 'editor_addon_cell',
+
+    /**
+     * The addon cell id name.
+     * @inner
+     */
+    CELL_ID: 'cell_',
+
+    /**
+     * The addon cell font size.
+     * @inner
+     */
+    CELL_FONT_SIZE: '12.2px',
+  };
+
+  // Variables
+  this.backgroundColor = '#f6f6f6';
+  this.width = 50;
+
+  // styling...
+  console.log( document.getElementById(this.CONSTANTS.MAIN_ID).style );
   
-  /**
-   * The addon cell class name.
-   * @inner
-   */
-  CELL: 'editor_addon_cell',
+  document.getElementById(this.CONSTANTS.MAIN_ID).style.display = 'inline';
+  document.getElementById(this.CONSTANTS.MAIN_ID).style.float = 'left';
 
-  /**
-   * The addon cell id.
-   * @inner
-   */
-  CELL_ID: 'cell_',
+  this.setBackgroundColor(this.backgroundColor);
+  this.setWidth(this.width);
+}
 
-  /**
-   * The addon cell font size.
-   * @inner
-   */
-  CELL_FONT_SIZE: '12.2px'
+/**
+ * Set the background color of the ace editor addon.
+ *
+ * @param {String} color The color as hex value.
+ */
+AceAddon.prototype.setBackgroundColor = function(color) {
+  this.backgroundColor = color;
+  document.getElementById(this.CONSTANTS.MAIN_ID).style.backgroundColor = this.backgroundColor;
+  return this.backgroundColor;
 };
 
 /**
- * The ace editor addon.
- * This object contains functions to create and manipulate the editor addon.
- * You need to add a "div" with an id "editor_addon" to append to
- * the DOM correctly.
+ * Set the width of the ace editor addon.
  *
- * @type {Object}
+ * @param {Number} width The width of the addon in pixels.
  */
-var aceAddon = {
-
-  /**
-   * Set the height of the editor addon.
-   * 
-   * @param {Number} height The height of the addon in pixels.
-   */
-  setHeight: function(height) {
-    document.getElementById(ACE_ADDON_CONSTANTS.MAIN).style.height = height+'px';
-  },
-
-  /**
-   * Functions for a single gutter.
-   * 
-   * @type {Object}
-   */
-  gutter: {
-    /**
-     * Add a gutter cell div with a specific id.
-     * 
-     * @param {String} id   The id of the gutter cell.
-     * @param {String} html The html inner content of the gutter cell.
-     */
-    addCell: function(id, html) {
-      var tmpGutterCell = document.createElement('div');
-      tmpGutterCell.className = ACE_ADDON_CONSTANTS.CELL;
-      tmpGutterCell.id = id;
-      tmpGutterCell.innerHTML = html;
-      tmpGutterCell.style.height = editor.renderer.lineHeight+'px';
-      tmpGutterCell.style.fontSize = ACE_ADDON_CONSTANTS.CELL_FONT_SIZE;
-      document.getElementById(ACE_ADDON_CONSTANTS.MAIN).appendChild(tmpGutterCell);
-    },
-    
-    /**
-     * Set the text content of the gutter cell.
-     * 
-     * @param {String} id   The id of the gutter cell.
-     * @param {String} html The html inner content of the gutter cell.
-     */
-    setCellText: function(id, html) {
-      var tmp = document.getElementById(ACE_ADDON_CONSTANTS.CELL_ID+id);
-      tmp.innerHTML = html;
-      
-      // TODO: Draw the graph here...
-      //tmp.innerHTML = content+'<hr class="cell_'+id+'_bar" style="border-top: 2px solid black; margin-top:0px; width:50%" />';
-      //console.log(tmp, content);
-    }
-  },
-
-
-  /**
-   * Add 'n' gutters to the addon.
-   * 
-   * @param {Number} totalGutters The number of gutters we want to add.
-   */
-  addGutters: function(totalGutters) {
-    for (var i=0; i<totalGutters; i++) {
-      this.gutter.addCell(ACE_ADDON_CONSTANTS.CELL_ID+i, '');
-    };
-  },
-
-  /**
-   * Delete text content from each gutter cell.
-   */
-  resetCellText: function(totalGutters) {
-    for (var i=0; i<editor.getSession().getDocument().getLength(); i++) {
-      this.gutter.setCellText(i, '');
-    };
-  }
-
+AceAddon.prototype.setWidth = function(width) {
+  this.width = width
+  document.getElementById(this.CONSTANTS.MAIN_ID).style.width = this.width+'px';
+  return this.width;
 };
+
+// adjust the height to the amount of lines of text.
+// AceAddon.prototype.setHeightToEditorLength = function(ace) {
+//   var height = ace.getSession().getDocument().getLength() * ace.renderer.lineHeight;
+//   this.setHeight(height);
+// };
+
+/**
+ * Status: Total WIP...
+ */
+AceAddon.prototype.update = function(ace) {
+  this.cleanGutter();
+  this.addGutter(ace);
+};
+
+/**
+ * Add a gutter cell div with a specific id.
+ * 
+ * @param {String} id   The id of the gutter cell.
+ * @param {String} html The html inner content of the gutter cell.
+ */
+AceAddon.prototype.addGutterCell = function(id, html) {
+  var tmpGutterCell = document.createElement('div');
+  tmpGutterCell.className = this.CONSTANTS.CELL_CLASS;
+  tmpGutterCell.id = id;
+  tmpGutterCell.innerHTML = html;
+  tmpGutterCell.style.height = editor.renderer.lineHeight+'px';
+  tmpGutterCell.style.fontSize = this.CONSTANTS.CELL_FONT_SIZE;
+
+  document.getElementById(this.CONSTANTS.MAIN_ID).appendChild(tmpGutterCell);
+};
+
+/**
+ * Set the html content of a specific gutter cell.
+ * 
+ * @param {String} id   The id of the gutter cell.
+ * @param {String} html The inner html content of the gutter cell.
+ */
+AceAddon.prototype.setGutterCell = function(id, html) {
+  var tmp = document.getElementById(this.CONSTANTS.CELL_ID+id);
+  tmp.innerHTML = html;
+};
+
+/**
+ * Add 'n' gutters to the addon.
+ * 
+ * @param {Object} ace The ace editor instance.
+ */
+AceAddon.prototype.addGutter = function(ace) {
+  // The number of gutters we want to add.
+  var totalGutter = ace.getSession().getDocument().getLength();
+
+  for (var i=0; i<totalGutter; i++) {
+    this.addGutterCell(this.CONSTANTS.CELL_ID+i, '');
+  };
+};
+
+/**
+ * Remove all gutter cells.
+ */
+AceAddon.prototype.cleanGutter = function() {
+  var myNode = document.getElementById(this.CONSTANTS.MAIN_ID);
+  myNode.innerHTML = '';
+};
+
+// /**
+//  * Delete text content from each gutter cell.
+//  */
+// AceAddon.prototype.resetCellText = function(totalGutters) {
+//   for (var i=0; i<editor.getSession().getDocument().getLength(); i++) {
+//     this.gutter.setCellText(i, '');
+//   };
+// };

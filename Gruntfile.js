@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: ['src/*.js'],
-        dest: 'javascripts/main.js'
+        dest: 'demo/javascripts/main.js'
       }
     },
 
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'ace-builds/src-noconflict/',
             src: ['**'],
-            dest: 'javascripts/ace'
+            dest: 'demo/javascripts/ace'
           }
         ]
       }

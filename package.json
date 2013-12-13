@@ -10,7 +10,7 @@
     "url": "git://github.com/wrongentertainment/ace-fold-info.git"
   },
   "scripts": {
-    "start": "node node_modules/.bin/http-server"
+    "start": "node node_modules/.bin/http-server demo/"
   },
   "devDependencies": {
     "grunt-contrib-concat": "*",

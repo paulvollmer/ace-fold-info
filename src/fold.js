@@ -1,12 +1,15 @@
+/**
+ * The fold information functions.
+ */
 var foldInfo = {
   /**
    * Fold graph visualisation
    */
   graph: function() {
     //console.log('foldGraph');
-    aceAddon.resetGutterCellText();
+    aceAddon.resetCellText();
 
-    var div = document.getElementsByClassName('ace_gutter-cell');
+    var div = document.getElementsByClassName(ACE_ADDON_CONSTANTS.CELL);
     var foldData = editor.getSession().$foldData;
     //console.log(foldData);
     
@@ -32,7 +35,7 @@ var foldInfo = {
       //div[tmpStart].style.color = '#007fff';
       //div[tmpStart].textContent = (totalLines-1);
 
-      aceAddon.setGutterCellText(tmpStart, 'sloc: '+(totalLines-1));
+      aceAddon.gutter.setCellText(tmpStart, 'sloc: '+(totalLines-1));
     };
   }
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="navbar">
-    <h3><a href="http://github.com/wrongentertainment/ace-fold-info">ace-fold-info</a></h3>
+    <h3>ace-fold-info</h3>
   </div>
 
   <div id="buttons_container">
@@ -49,70 +49,38 @@ function rectArea(a, b) {
     <script src="./javascripts/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="./javascripts/main.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      /**
-       * Create a new ace editor instance and setup some settings.
-       */
+      // Create a new ace editor instance and setup some settings.
       var editor = ace.edit("editor");
       editor.setTheme("ace/theme/tomorrow");
       editor.getSession().setMode("ace/mode/javascript", function() {
         // Fold the content
         editor.session.foldAll();
 
-        foldInfo.graph();
+        //foldInfo.graph(editor, addon);
+      });
+      editor.setOptions({
+        maxLines: Infinity
       });
 
-      /**
-       * input functions on change event...
-       */
-      editor.getSession().on('change',function(){
-        update();
-      });
+      // Create a ace addon instance.
+      var addon = new AceAddon(editor);
+      addon.update(editor);
 
-      editor.getSession().on('changeFold',function(){
-        //console.log('-> changeFold');
-        foldInfo.graph();
-      });
-
-      /**
-       * Some ace editor helper functions we need.
-       */
-      var editorHelper = {
-        /**
-         * Set the height of the editor.
-         * Note: ace get slow if too many lines.
-         */
-        setHeight: function(height) {
-          document.getElementById('editor').style.height = height+'px';
+      // input functions on change event...
+      editor.getSession().on('changeFold',function(e) {
+        if (e.action === 'add') {
+          //console.log('fold it', e);
+          foldInfo.add(e, addon);
         }
-      };
-
-      /**
-       * Update function
-       */
-      function update() {
-        if (editor.getSession().getDocument().getLength() < 20) {
-          var tmpHeight = editor.renderer.lineHeight*20;
-          //editorSetHeight(tmpHeight);
-          editorHelper.setHeight(tmpHeight);
-
-          aceAddon.setHeight(tmpHeight);
-          aceAddon.addGutters(editor.getSession().getDocument().getLength());
-          foldInfo.graph();
-        } else {
-          var tmpHeight = editor.getSession().getDocument().getLength() * editor.renderer.lineHeight;
-          //editorSetHeight(tmpHeight);
-          editorHelper.setHeight(tmpHeight);
-
-          aceAddon.setHeight(tmpHeight);
-          aceAddon.addGutters(editor.getSession().getDocument().getLength());
-          foldInfo.graph();
+        if (e.action === 'remove') {
+          //console.log('unfold it', e);
+          foldInfo.remove(e, addon);
         }
-      }
-
-      update();
-
+      });
     </script>
   </div>
+
+  <a href="https://github.com/wrongentertainment/ace-fold-info"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
 </body>
 </html>

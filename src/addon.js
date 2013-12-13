@@ -36,18 +36,14 @@ function AceAddon() {
     CELL_FONT_SIZE: '12.2px',
   };
 
-  // Variables
-  this.backgroundColor = '#f6f6f6';
-  this.width = 50;
+  // The main DOM element
+  this.mainElement = document.getElementById(this.CONSTANTS.MAIN_ID);
 
-  // styling...
-  console.log( document.getElementById(this.CONSTANTS.MAIN_ID).style );
-  
-  document.getElementById(this.CONSTANTS.MAIN_ID).style.display = 'inline';
-  document.getElementById(this.CONSTANTS.MAIN_ID).style.float = 'left';
-
-  this.setBackgroundColor(this.backgroundColor);
-  this.setWidth(this.width);
+  // default styling
+  this.mainElement.style.display = 'inline';
+  this.mainElement.style.float = 'left';
+  this.mainElement.style.backgroundColor = '#f6f6f6';
+  this.mainElement.style.width = '50px';
 }
 
 /**
@@ -56,9 +52,7 @@ function AceAddon() {
  * @param {String} color The color as hex value.
  */
 AceAddon.prototype.setBackgroundColor = function(color) {
-  this.backgroundColor = color;
-  document.getElementById(this.CONSTANTS.MAIN_ID).style.backgroundColor = this.backgroundColor;
-  return this.backgroundColor;
+  this.mainElement.style.backgroundColor = color;
 };
 
 /**
@@ -67,9 +61,7 @@ AceAddon.prototype.setBackgroundColor = function(color) {
  * @param {Number} width The width of the addon in pixels.
  */
 AceAddon.prototype.setWidth = function(width) {
-  this.width = width
-  document.getElementById(this.CONSTANTS.MAIN_ID).style.width = this.width+'px';
-  return this.width;
+  this.mainElement.style.width = width+'px';
 };
 
 // adjust the height to the amount of lines of text.
@@ -100,7 +92,7 @@ AceAddon.prototype.addGutterCell = function(id, html) {
   tmpGutterCell.style.height = editor.renderer.lineHeight+'px';
   tmpGutterCell.style.fontSize = this.CONSTANTS.CELL_FONT_SIZE;
 
-  document.getElementById(this.CONSTANTS.MAIN_ID).appendChild(tmpGutterCell);
+  this.mainElement.appendChild(tmpGutterCell);
 };
 
 /**
@@ -132,8 +124,7 @@ AceAddon.prototype.addGutter = function(ace) {
  * Remove all gutter cells.
  */
 AceAddon.prototype.cleanGutter = function() {
-  var myNode = document.getElementById(this.CONSTANTS.MAIN_ID);
-  myNode.innerHTML = '';
+  this.mainElement.innerHTML = '';
 };
 
 // /**

@@ -90,21 +90,23 @@ function rectArea(a, b) {
        * Update function
        */
       function update() {
-        if (editor.getSession().getDocument().getLength() < 20) {
+        var tmpEditorLength = editor.getSession().getDocument().getLength();
+
+        if (tmpEditorLength < 20) {
           var tmpHeight = editor.renderer.lineHeight*20;
           //editorSetHeight(tmpHeight);
           editorHelper.setHeight(tmpHeight);
 
           aceAddon.setHeight(tmpHeight);
-          aceAddon.addGutters(editor.getSession().getDocument().getLength());
+          aceAddon.addGutters(tmpEditorLength);
           foldInfo.graph();
         } else {
-          var tmpHeight = editor.getSession().getDocument().getLength() * editor.renderer.lineHeight;
+          var tmpHeight = tmpEditorLength * editor.renderer.lineHeight;
           //editorSetHeight(tmpHeight);
           editorHelper.setHeight(tmpHeight);
 
           aceAddon.setHeight(tmpHeight);
-          aceAddon.addGutters(editor.getSession().getDocument().getLength());
+          aceAddon.addGutters(tmpEditorLength);
           foldInfo.graph();
         }
       }

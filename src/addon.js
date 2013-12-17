@@ -55,7 +55,10 @@ function AceAddon(ace) {
   this.mainElement.style.width = '50px';
 
   // Set some rules to the stylesheets
-  document.write('<style>.editor_addon_cell_active { background-color: #dcdcdc; }</style>');
+  document.write('<style>'+
+    '.editor_addon_cell_active { background-color: #dcdcdc; }'+
+    '.'+this.CONSTANTS.CELL_CLASS+' { font-size: '+this.CONSTANTS.CELL_FONT_SIZE+'; position: relative; }'+
+    '</style>');
 
   // Add first time the gutter
   this.addGutter(ace);
@@ -148,7 +151,6 @@ AceAddon.prototype.addGutterCell = function(id, html) {
   tmpGutterCell.id = id;
   tmpGutterCell.innerHTML = html;
   tmpGutterCell.style.height = editor.renderer.lineHeight+'px';
-  tmpGutterCell.style.fontSize = this.CONSTANTS.CELL_FONT_SIZE;
 
   this.mainElement.appendChild(tmpGutterCell);
 };

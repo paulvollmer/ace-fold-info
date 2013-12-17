@@ -92,7 +92,7 @@ AceAddon.prototype.update = function(ace) {
 
   // on change event...
   ace.getSession().on('change', function(e) {
-    console.log(e);
+    //console.log('change', e);
 
     // if a new lin was added
     if (e.data.action === 'insertText' && e.data.text === '\n') {
@@ -101,6 +101,10 @@ AceAddon.prototype.update = function(ace) {
     };
     // if a line was removed
     if (e.data.action === 'removeLines') {
+      self.cleanGutter();
+      self.addGutter(ace);
+    };
+    if (e.data.action === 'removeText' && e.data.text === '\n') {
       self.cleanGutter();
       self.addGutter(ace);
     };

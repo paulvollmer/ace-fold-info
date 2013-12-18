@@ -55,7 +55,10 @@ function AceAddon(ace) {
   this.mainElement.style.width = '50px';
 
   // Set some rules to the stylesheets
-  document.write('<style>.editor_addon_cell_active { background-color: #dcdcdc; }</style>');
+  document.write('<style>'+
+    '.editor_addon_cell_active { background-color: #dcdcdc; }'+
+    '.'+this.CONSTANTS.CELL_CLASS+' { font-size: '+this.CONSTANTS.CELL_FONT_SIZE+'; position: relative; }'+
+    '</style>');
 
   // Add first time the gutter
   this.addGutter(ace);
@@ -89,7 +92,7 @@ AceAddon.prototype.update = function(ace) {
 
   // on change event...
   ace.getSession().on('change', function(e) {
-    console.log(e);
+    //console.log('change', e);
 
     // if a new lin was added
     if (e.data.action === 'insertText' && e.data.text === '\n') {
@@ -98,6 +101,10 @@ AceAddon.prototype.update = function(ace) {
     };
     // if a line was removed
     if (e.data.action === 'removeLines') {
+      self.cleanGutter();
+      self.addGutter(ace);
+    };
+    if (e.data.action === 'removeText' && e.data.text === '\n') {
       self.cleanGutter();
       self.addGutter(ace);
     };
@@ -148,7 +155,6 @@ AceAddon.prototype.addGutterCell = function(id, html) {
   tmpGutterCell.id = id;
   tmpGutterCell.innerHTML = html;
   tmpGutterCell.style.height = editor.renderer.lineHeight+'px';
-  tmpGutterCell.style.fontSize = this.CONSTANTS.CELL_FONT_SIZE;
 
   this.mainElement.appendChild(tmpGutterCell);
 };
